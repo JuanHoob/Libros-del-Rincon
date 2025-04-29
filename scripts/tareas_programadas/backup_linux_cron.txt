@@ -1,0 +1,2 @@
+# Script alternativo para Linux (cron)
+0 2 * * * mysqldump -u root -pTuPassword libros_rincon > /backups/libros_rincon_$(date +\%F).sql
