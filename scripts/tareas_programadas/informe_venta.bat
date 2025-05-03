@@ -1,1 +1,4 @@
-mysql -u root -pTuContraseña libros_rincon < "%~dp0\..\scripts\mysql\06_informe_diario_ventas.sql" > "%~dp0\informe_ventas_%FECHA%.csv"
+@echo off
+REM Ejecutar informe de ventas diario
+mysql -u tu_usuario -pTuContraseña libros_rincon < "C:\ruta\completa\informe_ventas_genero.sql" > "C:\ruta\completa\resultado_informe.txt"
+
