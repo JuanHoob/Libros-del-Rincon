@@ -1,14 +1,22 @@
 <div class="cover">
   <div class="cover-container">
     <h1 class="cover-title">Informe Final del Proyecto Práctico</h1>
-    <h2 class="cover-subtitle">Administración y Automatización de Base de Datos</h2>
+    <h2 class="cover-subtitle">Sistema Integral de Gestión de Librería</h2>
     <h3 class="cover-topic">"Libros del Rincón"</h3>
-    <div class="cover-author">
-      <strong>Autor:</strong> Juan de la Morena Marzalo<br>
-      <strong>Asignatura:</strong> UF1468 / UF1469 / UF1470
+    <div class="cover-details">
+      <div class="cover-author">
+        <strong>Autor:</strong> Juan de la Morena Marzalo<br>
+        <strong>Tutor:</strong> Alberto Mozo<br>
+        <strong>Centro:</strong> Urko formaciones<br>
+      </div>
+      <div class="cover-info">
+        <strong>Asignatura:</strong> Administración y Automatización de Bases de Datos<br>
+        <strong>Códigos:</strong> UF1468 / UF1469 / UF1470<br>
+        <strong>Curso Académico:</strong> 2024/2025
+      </div>
     </div>
     <div class="cover-date">
-      Fecha de entrega: 05/05/2025
+      Fecha de entrega: 05 de Mayo de 2025
     </div>
   </div>
 </div>
@@ -18,40 +26,107 @@
 ## Índice
 
 - [Índice](#índice)
+- [Contexto del Proyecto](#contexto-del-proyecto)
+- [Objetivos Cumplidos](#objetivos-cumplidos)
+- [Metodología](#metodología)
+- [Estructura del Documento](#estructura-del-documento)
+- [Modelo Entidad-Relación](#modelo-entidad-relación)
+- [Decisiones Clave de Diseño](#decisiones-clave-de-diseño)
+- [Script de Creación Completo](#script-de-creación-completo)
 - [Creación de la Base de Datos y Gestión de Usuarios (UF1469)](#creación-de-la-base-de-datos-y-gestión-de-usuarios-uf1469)
 - [Introducción de Datos (UF1469)](#introducción-de-datos-uf1469)
 - [Automatización de Tareas (UF1470)](#automatización-de-tareas-uf1470)
   - [Trigger de stock](#trigger-de-stock)
   - [Informe diario de ventas (Windows)](#informe-diario-de-ventas-windows)
-  - [Informe diario de ventas (Linux – cron)](#informe-diario-de-ventas-linux--cron)
   - [Script Python para creación de pedidos](#script-python-para-creación-de-pedidos)
 - [Optimización de Consultas (UF1470)](#optimización-de-consultas-uf1470)
 - [Planificación de Backups (UF1468)](#planificación-de-backups-uf1468)
+  - [Script de Backup Automático (Windows)](#script-de-backup-automático-windows)
+    - [Automatización de Backup - Programador de Tareas de Windows](#automatización-de-backup---programador-de-tareas-de-windows)
+    - [1. Apertura del Programador de tareas](#1-apertura-del-programador-de-tareas)
+    - [2. Creación de una nueva tarea básica](#2-creación-de-una-nueva-tarea-básica)
+    - [3. Configuración de la frecuencia](#3-configuración-de-la-frecuencia)
+    - [4. Programación de la hora de ejecución](#4-programación-de-la-hora-de-ejecución)
+    - [5. Selección de la acción](#5-selección-de-la-acción)
+    - [6. Revisión y finalización](#6-revisión-y-finalización)
+    - [Observaciones Importantes](#observaciones-importantes)
 - [Dificultades y Conclusiones](#dificultades-y-conclusiones)
 - [Anexos](#anexos)
+<!-- TOC:END -->
 
 <div style="page-break-after: always;"></div>
 
 # Introducción
 
-Este documento recoge el desarrollo completo del proyecto práctico para la librería online **“Libros del Rincón”**. Incluye:
+## Contexto del Proyecto
 
-- Diseño del esquema relacional y justificación de diseño.
-- Crear base de datos y usuarios con permisos.
-- Inserción de datos de ejemplo.
-- Automatización con trigger, scripts `.bat`, `cron` y Python.
-- Optimización de consultas con `EXPLAIN` e índices.
-- Planificación de backups diarios.
+"Libros del Rincón" es una librería independiente que requiere modernizar su sistema de gestión. Este proyecto implementa una solución completa que abarca:
+
+- Gestión centralizada de inventario
+- Automatización de procesos clave
+- Generación de informes estratégicos
+- Sistema de backups robusto
+
+## Objetivos Cumplidos
+
+✔ Diseño de base de datos relacional normalizada  
+✔ Implementación de seguridad por roles  
+✔ Sistema de actualización automática de stock  
+✔ Mecanismos de optimización de consultas  
+✔ Solución multiplataforma (Windows/Linux)
+
+## Metodología
+
+El desarrollo siguió una aproximación por fases:
+
+1. **Análisis**: Requisitos y modelado conceptual
+2. **Implementación**: Scripts SQL y automatización
+3. **Pruebas**: Validación de triggers y scripts
+4. **Documentación**: Capturas y explicación técnica
+
+## Estructura del Documento
+
+Este informe se organiza en 8 secciones que reflejan el flujo de trabajo desarrollado, desde el diseño inicial hasta las conclusiones finales.
 
 <div style="page-break-after: always;"></div>
 
 # Diseño de la Base de Datos (UF1468)
 
-Se utilizó **MySQL**. El esquema consta de:
+## Modelo Entidad-Relación
+
+![Diagrama ER](./capturas/diagrama_er.png)
+
+## Decisiones Clave de Diseño
+
+1. **Normalización**:
+
+   - 3FN para evitar redundancias
+   - Relaciones muchos-a-muchos mediante tabla intermedia
+
+2. **Tipos de Datos**:
+
+   - `DECIMAL` para precisión monetaria
+   - `VARCHAR` con longitudes ajustadas a necesidades reales
+
+3. **Restricciones**:
+
+   - Claves primarias autoincrementales
+   - `NOT NULL` para datos obligatorios
+   - Integridad referencial con `FOREIGN KEY`
+
+4. **Índices Iniciales**:
+   - Campos de búsqueda frecuente
+   - Claves foráneas para joins eficientes
+
+## Script de Creación Completo
 
 ```sql
+-- [01_creacion_bd.sql](http://_vscodecontentref_/0)
+-- Incluye ENGINE y CHARSET explícitos
+CREATE DATABASE IF NOT EXISTS libros_rincon
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
-CREATE DATABASE IF NOT EXISTS libros_rincon;
 USE libros_rincon;
 
 CREATE TABLE Libros(
@@ -115,7 +190,7 @@ GRANT SELECT, INSERT ON libros_rincon.Pedidos TO 'agenteventas'@'localhost';
 <div style="page-break-after: always;"></div>
 
 **Captura:**
-![Usuarios y permisos](./capturas/02_usuarios_y_permisos.png)
+![Usuarios y permisos](./capturas/usuarios_y_permisos.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -133,10 +208,10 @@ INSERT INTO Items_Pedido (...) VALUES ...;
 
 **Capturas:**
 
-- ![Clientes](./capturas/03_ingesta_datos_clientes.png)
-- ![Libros](./capturas/03_ingesta_libros.png)
-- ![Pedidos](./capturas/03_ingesta_pedidos.png)
-- ![Items Pedido](./capturas/03_ingesta_items_pedidos.png)
+- ![Clientes](./capturas/ingesta_datos_clientes.png)
+- ![Libros](./capturas/ingesta_libros.png)
+- ![Pedidos](./capturas/ingesta_pedidos.png)
+- ![Items Pedido](./capturas/ingesta_items_pedidos.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -197,19 +272,6 @@ GROUP BY l.genero;
 
 <div style="page-break-after: always;"></div>
 
-### Informe diario de ventas (Linux – cron)
-
-```bash
-# scripts/tareas_programadas/07_cron_informe_ventas.sh
-#!/bin/bash
-date=$(date +"%F")
-mysql -u USR -pPWD libros_rincon < scripts/mysql/06_informe_diario_ventas.sql > informes/ventas_$date.txt
-```
-
-```cron
-0 8 * * * /ruta/07_cron_informe_ventas.sh
-```
-
 ### Script Python para creación de pedidos
 
 ```python
@@ -256,26 +318,67 @@ CREATE INDEX idx_fecha ON Pedidos(fecha_pedido);
 
 ## Planificación de Backups (UF1468)
 
+### Script de Backup Automático (Windows)
+
+Guárdalo como `tareas_programadas/backup_windows.bat`:
+
 ```bat
-:: scripts/tareas_programadas/backup_windows.bat
 @echo off
-set fecha=%date:~6,4%-%date:~3,2%-%date:~0,2%
-mysqldump -u USR -pPWD libros_rincon > backups/backup_%fecha%.sql
+REM Obtener la fecha y hora en formato compatible con nombres de archivo en Windows
+for /f "tokens=2 delims==" %%i in ('wmic os get localdatetime /value') do set datetime=%%i
+set fecha=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2%
+set hora=%datetime:~8,2%-%datetime:~10,2%-%datetime:~12,2%
+
+REM Generar el nombre del archivo de backup
+set nombre_backup=backup_%fecha%_%hora%.sql
+
+REM Ejecutar el comando mysqldump y guardar el archivo
+mysqldump -u root -pTuContraseña libros_rincon > "C:\backups\%nombre_backup%"
 ```
 
-```cron
-0 2 * * * mysqldump -u USR -pPWD libros_rincon > /ruta/backups/backup_$(date +\%F).sql
-```
+#### Automatización de Backup - Programador de Tareas de Windows
 
-**Capturas:**
+Una vez creado el script de copia de seguridad `backup_windows.bat`, se procedió a su automatización mediante el Programador de tareas de Windows.
 
-- ![Backup Win](./capturas/creacionruta_carpeta_archivos_tareaprogramada_win.PNG)
+#### 1. Apertura del Programador de tareas
 
-  <div style="page-break-after: always;"></div>
+- Se accede a **Programador de tareas** desde el menú Inicio de Windows.
 
-- ![Backup Cron](./capturas/cron_backup.png)
+#### 2. Creación de una nueva tarea básica
 
-<div style="page-break-after: always;"></div>
+- Se selecciona la opción **Crear tarea básica**.
+- Se asigna:
+  - **Nombre**: `Backup automático base de datos`
+  - **Descripción**: `Realiza automáticamente una copia de seguridad de la base de datos MySQL cada día.`
+
+#### 3. Configuración de la frecuencia
+
+- Se elige ejecutar la tarea **Diariamente**.
+
+#### 4. Programación de la hora de ejecución
+
+- Se establece una **hora fija** de ejecución diaria (por ejemplo, 20:00 h).
+
+#### 5. Selección de la acción
+
+- Se configura la tarea para **Iniciar un programa**.
+- Se selecciona el archivo `backup_windows.bat` previamente creado.
+
+#### 6. Revisión y finalización
+
+- Se revisa el resumen de la tarea.
+- Se pulsa en **Finalizar** para dejar programada la ejecución automática.
+
+---
+
+#### Observaciones Importantes
+
+- El archivo `backup_windows.bat` debe tener permisos de ejecución adecuados.
+- La contraseña de MySQL debe estar escrita en el script si se desea ejecución sin intervención manual.
+- La tarea se ejecutará siempre que el equipo esté encendido a la hora programada.
+- La copia de seguridad se almacenará en la ruta especificada en el `.bat` (`C:\backups\`).
+
+---
 
 ## Dificultades y Conclusiones
 
@@ -294,16 +397,9 @@ mysqldump -u USR -pPWD libros_rincon > backups/backup_%fecha%.sql
   ```
   libros_rincon/
     .vscode/
-      settings.json
     scripts/
       mysql/
-        01_creacion_bd.sql scripts/mysql/02_usuarios_y_permisos.sql scripts/mysql/03_datos_ejemplo.sql scripts/mysql/04_trigger_actualizar_stock.sql scripts/mysql/05_consulta_optimizacion.sql scripts/mysql/06_informe_diario_ventas.sql
-      tareas_programadas/
-        backup_programador_windows.bat
-        informe_venta.bat
-        informe_ventas_genero.sql
       python/
-        crear_pedido.py
     docs/
       capturas/
       cover.css
@@ -312,4 +408,4 @@ mysqldump -u USR -pPWD libros_rincon > backups/backup_%fecha%.sql
       informe_final.pdf
   ```
 
-- Repositorio: [https://github.com/tu_usuario/LIBROS-DEL-RINCON](https://github.com/tu_usuario/LIBROS-DEL-RINCON)
+- Repositorio: [https://github.com/JuanHoob/Libros-del-Rincon](https://github.com/JuanHoob/Libros-del-Rincon)
