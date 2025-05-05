@@ -1,0 +1,54 @@
+{
+  // ============= CONFIGURACIÓN GENERAL =============
+  "workbench.colorTheme": "Default Dark+",
+  "files.autoSave": "onFocusChange",
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+
+  // ============= CONFIGURACIÓN ESPECÍFICA PARA MARKDOWN =============
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.acceptSuggestionOnEnter": "off"
+  },
+
+  // ============= MARKDOWN-PDF =============
+  "markdown-pdf.styles": [
+    "${workspaceFolder}/docs/pdf.css",
+    "${workspaceFolder}/docs/cover.css"
+  ],
+  "markdown-pdf.margin": {
+    "top": "15mm",
+    "bottom": "15mm",
+    "left": "20mm",
+    "right": "20mm"
+  },
+  "markdown-pdf.includeDefaultStyles": true,
+  "markdown-pdf.displayHeaderFooter": true,
+  "markdown-pdf.headerTemplate": "<div style='font-size: 8px; margin-left: 20mm;'>Informe Final - Libros del Rincón</div>",
+  "markdown-pdf.footerTemplate": "<div style='font-size: 8px; margin-left: 20mm; text-align: center; width: 100%;'>Página <span class='pageNumber'></span> de <span class='totalPages'></span></div>",
+  "markdown-pdf.scale": 0.8,
+  "markdown-pdf.printBackground": true,
+  "markdown-pdf.ignoreLinks": false,
+  "markdown-pdf.pageRanges": "",
+  "markdown-pdf.breaks": true,
+
+  // ============= PASTE IMAGE =============
+  "pasteImage.path": "${projectRoot}/docs/capturas",
+  "pasteImage.prefix": "/docs/capturas/",
+  "pasteImage.defaultName": "captura_${currentFileNameWithoutExt}_${YYYY}-${MM}-${DD}_${HH}-${mm}-${ss}",
+  "pasteImage.encodePath": "none",
+  "pasteImage.forceUnixStyleSeparator": true,
+  "pasteImage.insertPattern": "![${imageFileNameWithoutExt}](${imageFilePath})",
+
+  // ============= EXTENSIONES ADICIONALES =============
+  "markdown-preview-enhanced.previewTheme": "github-light.css",
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.toc.orderedList": false,
+  "markdown.extension.preview.autoShowPreviewToSide": true
+}

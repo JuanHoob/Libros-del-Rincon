@@ -1,33 +1,109 @@
+/* docs/cover.css - Estilo específico para la página de portada */
 
-/* CSS para PDF (cover.css) */
-/* Estilos para la portada del documento */
-.cover {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  padding-top: 100px;
-}
-.cover h1 {
-  font-size: 36px;
-  margin-bottom: 0.5em;
-}
-.cover h2 {
-  font-size: 24px;
-  margin-bottom: 0.3em;
-}
-.cover h3 {
-  font-size: 18px;
-  margin-top: 0.5em;
-}
-.cover img {
-  margin-top: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Forzar salto de página tras la portada */
-div.page-break {
-  page-break-after: always;
-}
+/* Reset de márgenes para la portada */
+.cover-page {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    page-break-after: always;
+  }
+  
+  /* Contenedor principal */
+  .cover-container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2cm;
+    border: 1px solid #e1e1e1;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título principal */
+  .cover-title {
+    font-size: 28pt;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  
+  /* Subtítulo */
+  .cover-subtitle {
+    font-size: 18pt;
+    font-weight: 400;
+    color: #34495e;
+    margin-bottom: 40px;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    display: inline-block;
+  }
+  
+  /* Tema del proyecto */
+  .cover-topic {
+    font-size: 22pt;
+    font-weight: 500;
+    color: #3498db;
+    margin-bottom: 50px;
+    font-style: italic;
+  }
+  
+  /* Información del autor */
+  .cover-author {
+    font-size: 14pt;
+    margin-top: 60px;
+    color: #7f8c8d;
+  }
+  
+  .cover-author strong {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  /* Información institucional */
+  .cover-info {
+    position: absolute;
+    bottom: 2cm;
+    width: 100%;
+    text-align: center;
+    font-size: 12pt;
+    color: #95a5a6;
+  }
+  
+  .cover-info div {
+    margin: 5px 0;
+  }
+  
+  /* Logo (opcional) */
+  .cover-logo {
+    max-width: 200px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+  
+  /* Fecha */
+  .cover-date {
+    font-size: 12pt;
+    margin-top: 40px;
+    color: #95a5a6;
+    border-top: 1px solid #ecf0f1;
+    padding-top: 20px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Efecto de separación para el PDF */
+  @media print {
+    .cover-page {
+      height: 297mm; /* Altura A4 */
+    }
+  }
