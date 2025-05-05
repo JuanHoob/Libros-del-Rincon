@@ -1,0 +1,37 @@
+/* Márgenes generales de página */
+@page {
+    size: A4;
+    margin: 2cm;
+  }
+  @page:first {
+    /* Márgenes superiores mayores en la primera página (portada) */
+    margin-top: 5cm;
+    margin-bottom: 2cm;
+  }
+  
+  /* Encabezados y pies de página */
+  #header, #footer {
+    position: fixed;
+    width: 100%;
+    font-size: 10px;
+    text-align: center;
+    color: gray;
+  }
+  #header {
+    top: 0;
+  }
+  #footer {
+    bottom: 0;
+  }
+  
+  /* Restablecer márgenes internos del cuerpo */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Salto de página en cada <div class="page-break"> */
+  div.page-break {
+    page-break-after: always;
+  }
+  

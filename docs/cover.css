@@ -1,0 +1,33 @@
+
+/* CSS para PDF (cover.css) */
+/* Estilos para la portada del documento */
+.cover {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding-top: 100px;
+}
+.cover h1 {
+  font-size: 36px;
+  margin-bottom: 0.5em;
+}
+.cover h2 {
+  font-size: 24px;
+  margin-bottom: 0.3em;
+}
+.cover h3 {
+  font-size: 18px;
+  margin-top: 0.5em;
+}
+.cover img {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Forzar salto de página tras la portada */
+div.page-break {
+  page-break-after: always;
+}
